@@ -24,6 +24,7 @@ ConDoor <- ConLog[c(3:5)]
 # get rid of rows that do not have a container under container column
 # this also means that we will not be able to see the UPS with this comparison
 # which is why an Overall Back Order sheet is printed :)
+# gets rid of NA (empty lines)
 NADoor <- as.array(which(!is.na(ConDoor$CONTAINER)))
 ConDoor2 <- data.frame(ConDoor[NADoor,])
 
@@ -46,7 +47,8 @@ Ultimate <- merge.data.frame(FinalCD, FinalBOReport,
 write.table(Ultimate, file = "BackOrderGPM_InYard.csv",row.names=FALSE, na="",
             col.names=TRUE, sep=",")  
 
-# Below is the overall backorder report that includes UPS.
+# Below is the overall backorder report that includes UPS 
+# UPS back orders not included in the above sheet because it hosts no container
 
 write.table(sub2, file = "BackOrderGPM_OverAll.csv",row.names=FALSE, na="",
           col.names=TRUE, sep=",")
